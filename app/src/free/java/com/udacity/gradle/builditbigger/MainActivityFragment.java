@@ -10,11 +10,18 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainActivityFragment extends Fragment {
+
+    @Bind(R.id.progress) MaterialProgressBar mProgress;
 
     public MainActivityFragment() {
     }
@@ -32,7 +39,16 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        ButterKnife.bind(this, root);
+
         return root;
 
+    }
+
+    @OnClick(R.id.joke_button)
+    public void submit(View view) {
+        mProgress.setVisibility(View.VISIBLE);
+        new EndpointsAsyncTask(getActivity(), mProgress).execute();
     }
 }

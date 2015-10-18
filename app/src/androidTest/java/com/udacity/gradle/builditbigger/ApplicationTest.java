@@ -30,8 +30,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testTask() {
         String result = null;
 
-        EndpointsAsyncTask task = new EndpointsAsyncTask();
-        task.execute(getContext());
+        EndpointsAsyncTask task = new EndpointsAsyncTask(getContext(), null);
+        task.execute();
 
         try {
             result = task.get(30, TimeUnit.SECONDS);
